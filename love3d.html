@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>I Love You ❤️</title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      width: 100%;
+      min-height: 100%;
+      background: #080308;
+    }
+
+    body {
+      width: 100%;
+      min-height: 100%;
+      background:
+        radial-gradient(
+          circle at center,
+          #321323 0%,
+          #170913 38%,
+          #080308 100%
+        );
+      font-family: "Poppins", sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+
+    /* =====================================================
+       MAIN
+    ===================================================== */
+
+    #love3DPage {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100svh;
+      min-height: 100svh;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          ellipse at center,
+          rgba(255,70,130,.12),
+          transparent 38%
+        );
+    }
+
+    /* =====================================================
+       PHOTO BACKGROUND
+    ===================================================== */
+
+    #photoBackground {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+
+      background-image:
+        url("wen.jpg");
+
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+
+      opacity: 0;
+      transform: scale(1.08);
+
+      filter:
+        blur(16px)
+        brightness(.68);
+
+      transition:
+        opacity 5s ease,
+        transform 8s ease,
+        filter 5.5s ease;
+
+      pointer-events: none;
+    }
+
+    /* =====================================================
+       PHOTO OVERLAY
+    ===================================================== */
+
+    #photoOverlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(12,2,9,.94),
+          rgba(18,3,12,.78) 45%,
+          rgba(12,2,9,.92)
+        );
+
+      opacity: 1;
+
+      transition:
+        opacity 5s ease;
+
+      pointer-events: none;
+    }
+
+    /* =====================================================
+       PHOTO REVEAL
+    ===================================================== */
+
+    #love3DPage.photo-reveal #photoBackground {
+      opacity: 1;
+      transform: scale(1);
+
+      filter:
+        blur(0)
+        brightness(.82);
+    }
+
+    #love3DPage.photo-reveal #photoOverlay {
+      opacity: .18;
+    }
+
+    /* =====================================================
+       CANVAS
+    ===================================================== */
+
+    canvas {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      z-index: 2;
+    }
+
+    /* =====================================================
+       STARS
+    ===================================================== */
+
+    .stars {
+      position: absolute;
+      inset: 0;
+
+      pointer-events: none;
+      overflow: hidden;
+
+      z-index: 3;
+
+      transition:
+        opacity 3s ease;
+    }
+
+    #love3DPage.photo-reveal .stars {
+      opacity: .30;
+    }
+
+    .star {
+      position: absolute;
+
+      width: 2px;
+      height: 2px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.8);
+
+      box-shadow:
+        0 0 8px
+        rgba(255,150,190,.8);
+
+      animation:
+        twinkle
+        2s
+        ease-in-out
+        infinite
+        alternate;
+    }
+
+    @keyframes twinkle {
+
+      from {
+        opacity: .15;
+        transform: scale(.6);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+
+    }
+
+    /* =====================================================
+       FINAL MESSAGE
+       AUTOMATICALLY POSITIONED UNDER HEART
+    ===================================================== */
+
+    .final-message {
+      position: absolute;
+
+      left: 50%;
+
+      /*
+        Ito ang mahalagang part.
+        Hindi na bottom: 5px.
+
+        Ang JavaScript ang magse-set ng
+        --heart-message-top base sa actual
+        position at size ng heart.
+      */
+      top: var(--heart-message-top, 70%);
+
+      bottom: auto;
+
+      transform:
+        translateX(-50%)
+        translateY(25px);
+
+      z-index: 30;
+
+      width:
+        min(90%, 760px);
+
+      padding:
+        8px 16px 9px;
+
+      border:
+        1px solid
+        rgba(255,190,215,.28);
+
+      border-radius: 22px;
+
+      background:
+        rgba(30,6,20,.86);
+
+      box-shadow:
+        0 0 30px
+        rgba(255,50,125,.23);
+
+      backdrop-filter:
+        blur(11px);
+
+      -webkit-backdrop-filter:
+        blur(11px);
+
+      text-align: center;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition:
+        opacity 1.5s ease,
+        transform 1.5s ease,
+        background 1s ease;
+    }
+
+    .final-message.show {
+
+      opacity: 1;
+
+      transform:
+        translateX(-50%)
+        translateY(0);
+    }
+
+    #love3DPage.photo-reveal
+    .final-message {
+
+      background:
+        rgba(30,6,20,.58);
+
+      box-shadow:
+        0 0 35px
+        rgba(255,50,125,.35);
+    }
+
+    .final-message .big {
+
+      font-family:
+        "Dancing Script",
+        cursive;
+
+      font-size:
+        clamp(
+          22px,
+          3.8vw,
+          45px
+        );
+
+      font-weight: 700;
+
+      line-height: 1;
+
+      white-space: nowrap;
+
+      color: #fff2f7;
+
+      text-shadow:
+        0 0 10px
+        rgba(255,100,150,.7),
+
+        0 0 30px
+        rgba(255,70,130,.5),
+
+        0 0 70px
+        rgba(255,50,120,.35);
+    }
+
+    .final-message .small {
+
+      margin-top: 6px;
+
+      font-size: 10px;
+
+      letter-spacing: 3px;
+
+      opacity: .88;
+    }
+
+    /* =====================================================
+       BACK BUTTON
+    ===================================================== */
+
+    .back-btn {
+
+      position: absolute;
+
+      top: 17px;
+      right: 17px;
+
+      z-index: 40;
+
+      border:
+        1px solid
+        rgba(255,180,205,.25);
+
+      background:
+        rgba(255,255,255,.06);
+
+      color:
+        rgba(255,230,240,.85);
+
+      padding:
+        8px 13px;
+
+      border-radius: 999px;
+
+      font-family:
+        "Poppins",
+        sans-serif;
+
+      font-size: 11px;
+
+      cursor: pointer;
+
+      backdrop-filter:
+        blur(10px);
+
+      transition:
+        .3s ease;
+    }
+
+    .back-btn:hover {
+
+      background:
+        rgba(255,100,150,.15);
+
+      border-color:
+        rgba(255,150,180,.5);
+
+      transform:
+        translateY(-2px);
+    }
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 600px) {
+
+      #love3DPage {
+
+        height: 760px;
+
+        min-height: 760px;
+      }
+
+      .back-btn {
+
+        top: 7px;
+        right: 7px;
+
+        padding:
+          6px 9px;
+
+        font-size: 9px;
+      }
+
+      .final-message {
+
+        top:
+          var(--heart-message-top, 70%);
+
+        bottom: auto;
+
+        width:
+          calc(100% - 20px);
+
+        padding:
+          9px 8px 10px;
+
+        border-radius: 17px;
+      }
+
+      .final-message .big {
+
+        font-size:
+          clamp(
+            19px,
+            6vw,
+            30px
+          );
+
+        line-height: 1;
+
+        white-space: nowrap;
+      }
+
+      .final-message .small {
+
+        margin-top: 4px;
+
+        font-size: 7px;
+
+        letter-spacing: 1.5px;
+      }
+
+    }
+
+    /* =====================================================
+       SMALL PHONE
+    ===================================================== */
+
+    @media (max-width: 380px) {
+
+      #love3DPage {
+
+        height: 780px;
+
+        min-height: 780px;
+      }
+
+      .back-btn {
+
+        top: 6px;
+        right: 6px;
+
+        padding:
+          6px 8px;
+
+        font-size: 8px;
+      }
+
+      .final-message {
+
+        top:
+          var(--heart-message-top, 70%);
+
+        bottom: auto;
+
+        width:
+          calc(100% - 18px);
+
+        padding:
+          6px 5px 7px;
+      }
+
+      .final-message .big {
+
+        font-size:
+          clamp(
+            15px,
+            5.3vw,
+            23px
+          );
+      }
+
+      .final-message .small {
+
+        font-size: 5px;
+
+        letter-spacing: .8px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <main id="love3DPage">
+
+    <!-- =================================================
+         PHOTO
+    ================================================== -->
+
+    <div id="photoBackground"></div>
+
+    <div id="photoOverlay"></div>
+
+
+    <!-- =================================================
+         STARS
+    ================================================== -->
+
+    <div
+      class="stars"
+      id="stars">
+    </div>
+
+
+    <!-- =================================================
+         HEART
+    ================================================== -->
+
+    <canvas
+      id="loveCanvas">
+    </canvas>
+
+
+    <!-- =================================================
+         FINAL
+    ================================================== -->
+
+    <div
+      class="final-message"
+      id="finalMessage">
+
+      <div class="big">
+        ILOVEEYOUUUU BABYYY ❤️
+      </div>
+
+      <div class="small">
+        ALWAYSSS!
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         BACK
+    ================================================== -->
+
+    <button
+      class="back-btn"
+      id="backBtn"
+      type="button">
+
+      ← Back
+
+    </button>
+
+  </main>
+
+
+  <script>
+
+  (() => {
+
+    const page =
+      document.getElementById(
+        'love3DPage'
+      );
+
+
+    const canvas =
+      document.getElementById(
+        'loveCanvas'
+      );
+
+
+    const ctx =
+      canvas.getContext(
+        '2d'
+      );
+
+
+    const finalMessage =
+      document.getElementById(
+        'finalMessage'
+      );
+
+
+    const backBtn =
+      document.getElementById(
+        'backBtn'
+      );
+
+
+    const stars =
+      document.getElementById(
+        'stars'
+      );
+
+
+    /* =====================================================
+       STARS
+    ===================================================== */
+
+    for (
+      let i = 0;
+      i < 145;
+      i++
+    ) {
+
+      const star =
+        document.createElement(
+          'div'
+        );
+
+
+      star.className =
+        'star';
+
+
+      star.style.left =
+        Math.random() *
+        100 +
+        '%';
+
+
+      star.style.top =
+        Math.random() *
+        100 +
+        '%';
+
+
+      star.style.opacity =
+        (
+          .18 +
+          Math.random() *
+          .75
+        ).toFixed(2);
+
+
+      star.style.animationDelay =
+        (
+          Math.random() *
+          4
+        ).toFixed(2) +
+        's';
+
+
+      stars.appendChild(
+        star
+      );
+
+    }
+
+
+    /* =====================================================
+       CANVAS
+    ===================================================== */
+
+    let width = 0;
+
+    let height = 0;
+
+    let dpr = 1;
+
+
+    function resize() {
+
+      width =
+        window.innerWidth;
+
+      height =
+        page.offsetHeight;
+
+
+      dpr =
+        Math.min(
+          window.devicePixelRatio || 1,
+          2
+        );
+
+
+      canvas.width =
+        Math.floor(
+          width * dpr
+        );
+
+
+      canvas.height =
+        Math.floor(
+          height * dpr
+        );
+
+
+      canvas.style.width =
+        width + 'px';
+
+
+      canvas.style.height =
+        height + 'px';
+
+
+      ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+      );
+
+    }
+
+
+    resize();
+
+
+    window.addEventListener(
+      'resize',
+      resize
+    );
+
+
+    /* =====================================================
+       HEART SETTINGS
+    ===================================================== */
+
+    const mobile =
+      width < 600;
+
+
+    const COUNT =
+      mobile
+        ? 320
+        : 540;
+
+
+    const ENTRY_GAP =
+      mobile
+        ? 18
+        : 9;
+
+
+    const ENTRY_TRAVEL =
+      1650;
+
+
+    const FLOAT_TIME =
+      2300;
+
+
+    const FORM_GAP =
+      mobile
+        ? 16
+        : 7;
+
+
+    const FORM_TRAVEL =
+      1100;
+
+
+    const FORM_START_EXTRA =
+      250;
+
+
+    const particles = [];
+
+
+    /* =====================================================
+       HELPERS
+    ===================================================== */
+
+    const clamp =
+      (v) =>
+        Math.max(
+          0,
+          Math.min(
+            1,
+            v
+          )
+        );
+
+
+    const easeOut =
+      (t) =>
+        1 -
+        Math.pow(
+          1 - clamp(t),
+          3
+        );
+
+
+    const easeInOut =
+      (t) => {
+
+        t =
+          clamp(t);
+
+        return t < .5
+
+          ? 4 *
+            t *
+            t *
+            t
+
+          : 1 -
+            Math.pow(
+              -2 * t + 2,
+              3
+            ) / 2;
+      };
+
+
+    const lerp =
+      (a, b, t) =>
+        a +
+        (b - a) *
+        t;
+
+
+    /* =====================================================
+       HEART SHAPE
+    ===================================================== */
+
+    function heartXY(
+      t,
+      fill
+    ) {
+
+      const x =
+        16 *
+        Math.pow(
+          Math.sin(t),
+          3
+        );
+
+
+      const y =
+        -(
+          13 *
+          Math.cos(t)
+          -
+          5 *
+          Math.cos(2 * t)
+          -
+          2 *
+          Math.cos(3 * t)
+          -
+          Math.cos(4 * t)
+        );
+
+
+      const r =
+        fill
+
+          ? .38 +
+            Math.sqrt(
+              Math.random()
+            ) * .57
+
+          : .955 +
+            Math.random() * .035;
+
+
+      return {
+
+        x:
+          x * r,
+
+        y:
+          y * r
+      };
+
+    }
+
+
+    /* =====================================================
+       HEART SCALE
+    ===================================================== */
+
+    const heartScale =
+      Math.min(
+        width,
+        height
+      ) *
+      (
+        mobile
+          ? .0205
+          : .0235
+      );
+
+
+    /*
+      Bahagyang ibinaba ang heart
+      para hindi matamaan ng top message
+      at hindi rin matakpan.
+    */
+
+    const heartCenterY =
+      height * .46;
+
+
+    /* =====================================================
+       FINAL MESSAGE POSITION
+       NASA ILALIM MISMO NG HEART
+    ===================================================== */
+
+    function positionFinalMessage() {
+
+      /*
+        Ang heart equation ay umaabot
+        approximately hanggang 16 units
+        pababa mula sa center.
+
+        Kaya dito kinukuha ang actual
+        bottom point ng heart.
+      */
+
+      const heartBottom =
+        heartCenterY +
+        heartScale * 15.5;
+
+
+      /*
+        Maliit na pagitan para hindi
+        dumidikit ang box sa heart.
+      */
+
+      const gap =
+        mobile
+          ? 7
+          : 12;
+
+
+      page.style.setProperty(
+        '--heart-message-top',
+        (heartBottom + gap) + 'px'
+      );
+
+    }
+
+
+    positionFinalMessage();
+
+
+    /* =====================================================
+       TARGETS
+    ===================================================== */
+
+    const targets = [];
+
+
+    for (
+      let i = 0;
+      i < COUNT;
+      i++
+    ) {
+
+      const t =
+        Math.random() *
+        Math.PI *
+        2;
+
+
+      const isOutline =
+        Math.random() < .38;
+
+
+      const pt =
+        heartXY(
+          t,
+          !isOutline
+        );
+
+
+      targets.push({
+
+        x:
+          pt.x *
+          heartScale,
+
+        y:
+          pt.y *
+          heartScale,
+
+        z:
+          (
+            Math.random() -
+            .5
+          ) *
+          (
+            isOutline
+              ? 95
+              : 70
+          )
+
+      });
+
+    }
+
+
+    /* =====================================================
+       FORMATION ORDER
+       BOTTOM TIP FIRST
+    ===================================================== */
+
+    targets.sort(
+      (a, b) => {
+
+        return (
+          b.y -
+          a.y
+        ) +
+
+        (
+          Math.random() -
+          .5
+        ) * 5;
+
+      }
+    );
+
+
+    /* =====================================================
+       PARTICLES
+    ===================================================== */
+
+    for (
+      let i = 0;
+      i < COUNT;
+      i++
+    ) {
+
+      const target =
+        targets[i];
+
+
+      const phase =
+        Math.random() *
+        Math.PI *
+        2;
+
+
+      const streamX =
+        (
+          Math.random() -
+          .5
+        ) *
+        Math.min(
+          70,
+          width * .09
+        );
+
+
+      const streamY =
+        height * .96 +
+        Math.random() *
+        height * .14;
+
+
+      const streamZ =
+        (
+          Math.random() -
+          .5
+        ) *
+        120;
+
+
+      const scatterWidth =
+        width *
+        (
+          .86 +
+          Math.random() *
+          .10
+        );
+
+
+      const scatterHeight =
+        height *
+        (
+          .70 +
+          Math.random() *
+          .18
+        );
+
+
+      const spaceX =
+        (
+          Math.random() -
+          .5
+        ) *
+        scatterWidth;
+
+
+      const spaceY =
+        (
+          Math.random() -
+          .5
+        ) *
+        scatterHeight;
+
+
+      const spaceZ =
+        (
+          Math.random() -
+          .5
+        ) *
+        900;
+
+
+      particles.push({
+
+        targetX:
+          target.x,
+
+        targetY:
+          target.y,
+
+        targetZ:
+          target.z,
+
+        streamX,
+
+        streamY,
+
+        streamZ,
+
+        spaceX,
+
+        spaceY,
+
+        spaceZ,
+
+        phase,
+
+        orbit:
+          .50 +
+          Math.random() * .80,
+
+        drift:
+          .50 +
+          Math.random() * .80,
+
+        size:
+          .34 +
+          Math.random() * .17,
+
+        alpha:
+          .60 +
+          Math.random() * .40,
+
+        entryDelay:
+          i *
+          ENTRY_GAP,
+
+        formDelay:
+          0,
+
+        x:
+          streamX,
+
+        y:
+          streamY,
+
+        z:
+          streamZ,
+
+        rotation:
+          (
+            Math.random() -
+            .5
+          ) * .12,
+
+        visible:
+          false,
+
+        locked:
+          false,
+
+        formAssigned:
+          false
+
+      });
+
+    }
+
+
+    /* =====================================================
+       WORD SPRITE
+    ===================================================== */
+
+    const sprite =
+      document.createElement(
+        'canvas'
+      );
+
+
+    const sctx =
+      sprite.getContext(
+        '2d'
+      );
+
+
+    sprite.width =
+      125;
+
+
+    sprite.height =
+      30;
+
+
+    sctx.font =
+      '700 12px Poppins, sans-serif';
+
+
+    sctx.textAlign =
+      'center';
+
+
+    sctx.textBaseline =
+      'middle';
+
+
+    sctx.shadowBlur =
+      7;
+
+
+    sctx.shadowColor =
+      'rgba(255,78,137,.65)';
+
+
+    const textGradient =
+      sctx.createLinearGradient(
+        25,
+        5,
+        100,
+        25
+      );
+
+
+    textGradient.addColorStop(
+      0,
+      '#fff8fb'
+    );
+
+
+    textGradient.addColorStop(
+      .48,
+      '#ffd2e1'
+    );
+
+
+    textGradient.addColorStop(
+      1,
+      '#ff8fb1'
+    );
+
+
+    sctx.fillStyle =
+      textGradient;
+
+
+    sctx.fillText(
+      'I LOVE YOU',
+      62.5,
+      15
+    );
+
+
+    /* =====================================================
+       PROJECT
+    ===================================================== */
+
+    function project(
+      x,
+      y,
+      z
+    ) {
+
+      const camera =
+        900;
+
+
+      const scale =
+        camera /
+        (
+          camera + z
+        );
+
+
+      return {
+
+        x:
+          width / 2 +
+          x * scale,
+
+        y:
+          heartCenterY +
+          y * scale,
+
+        scale
+
+      };
+
+    }
+
+
+    /* =====================================================
+       DRAW WORD
+    ===================================================== */
+
+    function drawWord(p) {
+
+      const q =
+        project(
+          p.x,
+          p.y,
+          p.z
+        );
+
+
+      const depth =
+        Math.max(
+          .35,
+          Math.min(
+            1.25,
+            q.scale
+          )
+        );
+
+
+      const w =
+        125 *
+        depth *
+        p.size;
+
+
+      const h =
+        30 *
+        depth *
+        p.size;
+
+
+      ctx.save();
+
+
+      ctx.globalAlpha =
+        p.alpha *
+        Math.max(
+          .30,
+          Math.min(
+            1,
+            q.scale
+          )
+        );
+
+
+      ctx.translate(
+        q.x,
+        q.y
+      );
+
+
+      ctx.rotate(
+        p.rotation
+      );
+
+
+      ctx.drawImage(
+        sprite,
+        -w / 2,
+        -h / 2,
+        w,
+        h
+      );
+
+
+      ctx.restore();
+
+    }
+
+
+    /* =====================================================
+       BACKGROUND
+    ===================================================== */
+
+    function drawBackground() {
+
+      ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+
+      const g =
+        ctx.createRadialGradient(
+          width / 2,
+          heartCenterY,
+          0,
+          width / 2,
+          heartCenterY,
+          Math.max(
+            width,
+            height
+          ) * .65
+        );
+
+
+      g.addColorStop(
+        0,
+        'rgba(255,70,130,.09)'
+      );
+
+
+      g.addColorStop(
+        .42,
+        'rgba(255,40,100,.025)'
+      );
+
+
+      g.addColorStop(
+        1,
+        'rgba(0,0,0,0)'
+      );
+
+
+      ctx.fillStyle =
+        g;
+
+
+      ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+    }
+
+
+    /* =====================================================
+       PHOTO REVEAL
+    ===================================================== */
+
+    let photoRevealStarted =
+      false;
+
+
+    function revealPhoto() {
+
+      if (
+        photoRevealStarted
+      )
+        return;
+
+
+      photoRevealStarted =
+        true;
+
+
+      setTimeout(
+        () => {
+
+          page.classList.add(
+            'photo-reveal'
+          );
+
+        },
+        3000
+      );
+
+    }
+
+
+    /* =====================================================
+       ANIMATION
+    ===================================================== */
+
+    const startTime =
+      performance.now();
+
+
+    let frozen =
+      false;
+
+
+    function animate(now) {
+
+      if (frozen)
+        return;
+
+
+      const elapsed =
+        now -
+        startTime;
+
+
+      drawBackground();
+
+
+      const lastEntry =
+        (
+          COUNT - 1
+        ) *
+        ENTRY_GAP;
+
+
+      const floatStart =
+        lastEntry +
+        ENTRY_TRAVEL;
+
+
+      const formStart =
+        floatStart +
+        FLOAT_TIME +
+        FORM_START_EXTRA;
+
+
+      /* =================================================
+         START FORMATION
+      ================================================= */
+
+      if (
+        elapsed >= formStart &&
+        !particles[0].formAssigned
+      ) {
+
+        particles.forEach(
+          (p, i) => {
+
+            p.formDelay =
+              formStart +
+              i *
+              FORM_GAP +
+              Math.random() *
+              65;
+
+
+            p.formAssigned =
+              true;
+
+          }
+        );
+
+      }
+
+
+      /* =================================================
+         UPDATE
+      ================================================= */
+
+      for (
+        const p of particles
+      ) {
+
+        const entryLocal =
+          elapsed -
+          p.entryDelay;
+
+
+        if (
+          entryLocal < 0
+        )
+          continue;
+
+
+        p.visible =
+          true;
+
+
+        const entryT =
+          clamp(
+            entryLocal /
+            ENTRY_TRAVEL
+          );
+
+
+        const entryE =
+          easeOut(
+            entryT
+          );
+
+
+        const spread =
+          easeInOut(
+            entryT
+          );
+
+
+        const ex =
+          lerp(
+            p.streamX,
+            p.spaceX,
+            spread
+          );
+
+
+        const ey =
+          lerp(
+            p.streamY,
+            p.spaceY,
+            entryE
+          );
+
+
+        const ez =
+          lerp(
+            p.streamZ,
+            p.spaceZ,
+            spread
+          );
+
+
+        const ft =
+          Math.max(
+            0,
+            elapsed -
+            floatStart
+          ) * .001;
+
+
+        /* =================================================
+           FULL SCREEN FLOATING
+        ================================================= */
+
+        const fx =
+          p.spaceX +
+
+          Math.sin(
+            ft *
+            p.drift +
+            p.phase
+          ) *
+          42 *
+          p.orbit +
+
+          Math.cos(
+            ft *
+            .43 +
+            p.phase
+          ) *
+          22;
+
+
+        const fy =
+          p.spaceY +
+
+          Math.cos(
+            ft *
+            .70 *
+            p.drift +
+            p.phase
+          ) *
+          34 *
+          p.orbit +
+
+          Math.sin(
+            ft *
+            .31 +
+            p.phase
+          ) *
+          16;
+
+
+        const fz =
+          p.spaceZ +
+
+          Math.sin(
+            ft *
+            .58 +
+            p.phase *
+            1.4
+          ) *
+          150;
+
+
+        /* =================================================
+           FLOAT / ENTRY
+        ================================================= */
+
+        if (
+          !p.formAssigned ||
+          elapsed < p.formDelay
+        ) {
+
+          p.x =
+            entryLocal <
+            ENTRY_TRAVEL
+              ? ex
+              : fx;
+
+
+          p.y =
+            entryLocal <
+            ENTRY_TRAVEL
+              ? ey
+              : fy;
+
+
+          p.z =
+            entryLocal <
+            ENTRY_TRAVEL
+              ? ez
+              : fz;
+
+
+          p.rotation =
+            Math.sin(
+              ft *
+              .8 *
+              p.drift +
+              p.phase
+            ) *
+            .10;
+
+
+          continue;
+
+        }
+
+
+        /* =================================================
+           FORM HEART
+        ================================================= */
+
+        const ftLocal =
+          clamp(
+            (
+              elapsed -
+              p.formDelay
+            ) /
+            FORM_TRAVEL
+          );
+
+
+        const fe =
+          easeInOut(
+            ftLocal
+          );
+
+
+        const pull =
+          Math.sin(
+            fe *
+            Math.PI
+          );
+
+
+        const ax =
+          fx +
+
+          Math.sin(
+            p.phase *
+            1.7
+          ) *
+          65 *
+          pull;
+
+
+        const ay =
+          fy -
+          35 *
+          pull;
+
+
+        const az =
+          fz +
+
+          Math.cos(
+            p.phase
+          ) *
+          90 *
+          pull;
+
+
+        p.x =
+          lerp(
+            ax,
+            p.targetX,
+            fe
+          );
+
+
+        p.y =
+          lerp(
+            ay,
+            p.targetY,
+            fe
+          );
+
+
+        p.z =
+          lerp(
+            az,
+            p.targetZ,
+            fe
+          );
+
+
+        p.rotation =
+          Math.sin(
+            ft *
+            .8 *
+            p.drift +
+            p.phase
+          ) *
+          .08 *
+          (
+            1 -
+            fe
+          );
+
+
+        if (
+          ftLocal >= 1
+        ) {
+
+          p.x =
+            p.targetX;
+
+          p.y =
+            p.targetY;
+
+          p.z =
+            p.targetZ;
+
+          p.rotation =
+            0;
+
+          p.locked =
+            true;
+
+        }
+
+      }
+
+
+      /* =================================================
+         DEPTH
+      ================================================= */
+
+      particles.sort(
+        (a, b) =>
+          b.z -
+          a.z
+      );
+
+
+      for (
+        const p of particles
+      ) {
+
+        if (
+          p.visible
+        ) {
+
+          drawWord(p);
+
+        }
+
+      }
+
+
+      /* =================================================
+         HEART COMPLETE
+      ================================================= */
+
+      const allLocked =
+        particles.every(
+          p =>
+            p.locked
+        );
+
+
+      if (
+        allLocked
+      ) {
+
+        frozen =
+          true;
+
+
+        /*
+          Recalculate one more time bago
+          ipakita ang final message.
+        */
+
+        positionFinalMessage();
+
+
+        finalMessage.classList.add(
+          'show'
+        );
+
+
+        revealPhoto();
+
+
+        return;
+
+      }
+
+
+      requestAnimationFrame(
+        animate
+      );
+
+    }
+
+
+    requestAnimationFrame(
+      animate
+    );
+
+
+    /* =====================================================
+       BACK
+    ===================================================== */
+
+    backBtn.addEventListener(
+      'click',
+      () => {
+
+        history.back();
+
+      }
+    );
+
+  })();
+
+  </script>
+
+
+  <audio
+    id="love3DMusic"
+    src="music1.mp3"
+    loop>
+  </audio>
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
